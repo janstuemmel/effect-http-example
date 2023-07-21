@@ -1,8 +1,7 @@
 {
   "watch": [
     "src",
-    "server.ts",
-    "server2.ts"
+    "server.ts"
   ],
   "ext": "ts",
   "execMap": {
