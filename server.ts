@@ -1,4 +1,4 @@
-import { Context, Layer, pipe, Exit, Effect, Runtime, Config } from 'effect';
+import { Context, Layer, pipe, Exit, Effect, Runtime, Config, Cause } from 'effect';
 import http from 'http';
 
 class HttpError {
@@ -44,7 +44,7 @@ const handleRequest = (req: http.IncomingMessage) => Effect.all([ExampleService]
 const handleResponse = (res: http.ServerResponse) => (exit: Exit.Exit<HttpError, HttpResponse>) => {
   Exit.match(exit, {
     onSuccess: (value) => res.write(JSON.stringify(value)),
-    onFailure: (cause) => res.write(`Error: ${JSON.stringify(cause)}`)
+    onFailure: (cause) => res.write(Cause.pretty(cause)),
   })
   res.end();
 };
