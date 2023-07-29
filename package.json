@@ -12,12 +12,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "node-mocks-http": "^1.12.2",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   },
   "dependencies": {
+    "@dldc/chemin": "^9.0.1",
     "@effect/schema": "^0.27.0",
     "effect": "^2.0.0-next.19"
   }
