@@ -1,6 +1,6 @@
 import { Config, Context, Effect, Layer, pipe } from 'effect';
-import { App } from './src/app.js';
-import http from 'http'
+import { App, HttpError } from './src/app.js';
+
 interface AppConfig {
   helloString: string,
   env: string
@@ -17,10 +17,8 @@ const app = new App()
   .use('GET', '/todo/:id', (req) => AppConfig.pipe(
     Effect.flatMap(c => Effect.succeed({ status: 200, body: { id: req.params.id, env: c.env } }))
   ))
-  .use('GET', '/foo', () => Effect.fail('hello world'))
-  .use('GET', '/', () => Effect.fail(501))
-
-const foo = app.route({} as http.IncomingMessage)
+  .use('GET', '/foo', () => Effect.fail(new HttpError(400, 'hello worlds')))
+  .use('GET', '/', () => Effect.fail(new HttpError(500, 'hello2')))
 
 const program = pipe(
   app.serve(3011),
